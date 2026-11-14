@@ -1,0 +1,15 @@
+{
+  "name": "velora-site-server",
+  "version": "1.0.0",
+  "description": "Simple Express server to handle contact form and send email",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.4",
+    "dotenv": "^16.3.1"
+  }
+}

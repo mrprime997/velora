@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#16498A">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<title>Enquiry received — Velora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body{min-height:100vh;display:grid;place-items:center;background:radial-gradient(760px 480px at 80% 20%,rgba(99,164,232,.38),transparent 70%),var(--navy)}
+.thanks{animation:thanksIn .8s cubic-bezier(.22,1,.36,1) both;width:min(640px,calc(100% - 32px));text-align:center;padding:56px 28px;border:1px solid rgba(255,255,255,.25);border-radius:14px;background:rgba(255,255,255,.07);box-shadow:0 30px 80px rgba(6,26,54,.35)}
+.thanks .mark{font:60px "Playfair Display",serif;color:#fff;margin-bottom:14px}
+.thanks h1{font-size:clamp(38px,7vw,60px)}
+.thanks p{max-width:480px;margin:18px auto 28px}
+.thanks .status{font-size:12px;color:var(--ice);margin-top:16px}
+@keyframes thanksIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.thanks{animation:none}}
+</style>
+</head>
+<body class="dark">
+<main class="thanks">
+  <img class="mark" src="assets/logo-mark-light.png" alt="Velora" width="150">
+  <h1 id="title">Thank you.</h1>
+  <p id="message">Your enquiry has been received. We’ll get back to you shortly.</p>
+  <a class="btn filled" href="index.html">Return to Velora <span>↗</span></a>
+  <div class="status" id="status"></div>
+</main>
+<script>
+const p=new URLSearchParams(location.search),s=p.get("status"),msg=p.get("msg");
+if(s==="queued"){
+  document.getElementById("title").textContent="We received it.";
+  document.getElementById("message").textContent="Your enquiry reached the website, but the mail server needs attention. Please contact Velora directly if you need an immediate response.";
+  document.getElementById("status").textContent="Reference: enquiry received";
+}else if(s==="error"){
+  document.getElementById("title").textContent="Almost there.";
+  document.getElementById("message").textContent=msg||"Please go back and complete the required fields.";
+}
+</script>
+</body>
+</html>

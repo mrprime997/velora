@@ -40,13 +40,13 @@ app.post("/send_email",async(req,res)=>{
    const name=clean(req.body.fullName,120),business=clean(req.body.businessName,160);
    const email=clean(req.body.email,160),phone=clean(req.body.phone,60);
    const service=clean(req.body.service,100),message=clean(req.body.message,4000);
-   if(!name||!email||!message)return res.redirect(303,"/thank-you.html?status=error&msg=Please%20complete%20the%20required%20fields");
+   if(!name||!email)return res.redirect(303,"/thank-you.html?status=error&msg=Please%20complete%20the%20required%20fields");
    const subject=`New Velora enquiry — ${business||name}`;
    const text=[
     "NEW VELORA WEBSITE ENQUIRY","",
     `Name: ${name}`,`Business / project: ${business||"—"}`,
     `Email: ${email}`,`Phone: ${phone||"—"}`,`Service: ${service||"—"}`,"",
-    "Message:",message,"",
+    "Message:",message||"—","",
     `Submitted: ${new Date().toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})}`
    ].join("\n");
    await sendMail({subject,text,replyTo:email});

@@ -4,7 +4,23 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   // Loader
   const loader=document.getElementById("loader");
-  window.addEventListener("load",()=>setTimeout(()=>loader?.classList.add("hide"),650));
+  const hideLoader=()=>{
+    if(!loader || loader.dataset.hidden === "true")return;
+    loader.dataset.hidden="true";
+    loader.classList.add("hide");
+    loader.style.opacity="0";
+    loader.style.visibility="hidden";
+    loader.style.pointerEvents="none";
+  };
+  const scheduleLoaderHide=()=>setTimeout(hideLoader,650);
+  if(document.readyState === "complete"){
+    scheduleLoaderHide();
+  } else {
+    window.addEventListener("load", scheduleLoaderHide, { once: true });
+    document.addEventListener("readystatechange", ()=>{
+      if(document.readyState === "complete") scheduleLoaderHide();
+    }, { once: true });
+  }
 
   // Mobile menu
   const toggle=document.getElementById("menuToggle"),nav=document.getElementById("siteNav");
@@ -149,7 +165,7 @@ document.addEventListener("DOMContentLoaded",()=>{
           <label class="full">Service<select name="service">
             <option>Strategy</option><option>Branding</option><option>Creative / Content</option><option>Digital Marketing</option><option>Website Development</option><option>Performance Marketing</option><option>SEO / Email</option><option>Multiple services</option>
           </select></label>
-          <label class="full">Message<textarea name="message" rows="4" required placeholder="Tell us briefly about your project, goal or requirement..."></textarea></label>
+          <label class="full"><span>Message <small>(optional)</small></span><textarea name="message" rows="4" placeholder="Tell us briefly about your project, goal or requirement..."></textarea></label>
         </div>
         <button class="btn filled submit-btn" type="submit"><span class="submit-text">Send enquiry</span><span class="submit-arrow">↗</span></button>
         <p class="form-note" id="formStatus">Your enquiry will be sent directly to the Velora email inbox.</p>
